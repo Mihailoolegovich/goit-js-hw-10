@@ -5,13 +5,20 @@ import API from './fetchCountries';
 
 const refs = {
   searchForm: document.querySelector('#search-box'),
-  ulCountryList: document.querySelector('.country-list'),
-  divCountryInfo: document.querySelector('.country-info'),
+  countryList: document.querySelector('.country-list'),
+  countryInfo: document.querySelector('.country-info'),
+  liCountryList: document.querySelector('.contry-list__about'),
+
 };
 
 const DEBOUNCE_DELAY = 300;
 
 refs.searchForm.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
+
+// refs.liCountryList.addEventListener('click', (event) => {
+// console.log("1", event.currentTarget.value);
+// console.log("2", event.target.value);
+// } )
 
 function onSearch(evt) {
   evt.preventDefault();
@@ -31,8 +38,8 @@ function onSearch(evt) {
 }
 
 function clearHTML() {
-  refs.ulCountryList.innerHTML = '';
-  refs.divCountryInfo.innerHTML = '';
+  refs.countryList.innerHTML = '';
+  refs.countryInfo.innerHTML = '';
 }
 
 function definitionСall(data) {
@@ -60,7 +67,11 @@ function addListContry(lists) {
       `;
     })
     .join('');
-  refs.ulCountryList.innerHTML = Contrys;
+  refs.countryList.innerHTML = Contrys;
+  refs.countryList.addEventListener('click', (event) => {
+    console.log("1", event.currentTarget.value);
+    console.log("2", event.target.value);
+    } )
 }
 
 function addExclusiveCounry(lists) {
@@ -79,5 +90,5 @@ function addExclusiveCounry(lists) {
       `;
     })
     .join('');
-  refs.divCountryInfo.innerHTML = aboutContry;
+  refs.countryInfo.innerHTML = aboutContry;
 }
