@@ -8,17 +8,21 @@ const refs = {
   countryList: document.querySelector('.country-list'),
   countryInfo: document.querySelector('.country-info'),
   liCountryList: document.querySelector('.contry-list__about'),
-
 };
 
 const DEBOUNCE_DELAY = 300;
 
 refs.searchForm.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
+refs.countryList.addEventListener('click', addCountryFromLink);
 
-// refs.liCountryList.addEventListener('click', (event) => {
-// console.log("1", event.currentTarget.value);
-// console.log("2", event.target.value);
-// } )
+function addCountryFromLink(event) {
+  API.fetchCountries(event.target.textContent)
+    .then(definitionСall)
+    .catch(error => Notify.failure('Oops, there is no country with that name'));
+  refs.countryList.innerHTML = '';
+
+  refs.searchForm.value = event.target.textContent;
+}
 
 function onSearch(evt) {
   evt.preventDefault();
@@ -68,10 +72,6 @@ function addListContry(lists) {
     })
     .join('');
   refs.countryList.innerHTML = Contrys;
-  refs.countryList.addEventListener('click', (event) => {
-    console.log("1", event.currentTarget.value);
-    console.log("2", event.target.value);
-    } )
 }
 
 function addExclusiveCounry(lists) {
